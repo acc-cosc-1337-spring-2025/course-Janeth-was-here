@@ -1,6 +1,6 @@
 ﻿//write include statements
 #include "data_types.h" // tells C++ where to find multiply_numbers function
-#include<iostream>
+#include<iostream> //stream
 
 //write namespace using statement for cout
 using std::cout; 

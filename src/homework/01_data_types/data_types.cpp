@@ -1,4 +1,4 @@
-#include "data_types.h"
+#include "data_types.h" //header
 
 //example
 int add_numbers(int num1, int num2)
