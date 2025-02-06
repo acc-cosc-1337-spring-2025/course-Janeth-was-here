@@ -3,14 +3,15 @@
 #include<iostream>
 
 //write namespace using statement for cout
-using std::cout; using std::cin;
+using std::cout; 
+using std::cin;
 
 
 int main()
 {
 	int num;
 	cout<<"Enter a number: ";
-	cin>>num;
+	cin>>num; //get a value from the keyboard
 
 	int result = multiply_numbers(num);
 
