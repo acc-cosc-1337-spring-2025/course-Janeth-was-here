@@ -1,4 +1,5 @@
 #include "tic_tac_toe.h"
+#include "tic_tac_toe_manager.h"  // Include the manager header
 #include <iostream>
 #include <string>
 
@@ -8,45 +9,42 @@ using std::string;
 
 int main() 
 {
-    TicTacToe game;  // Create an instance of the TicTacToe game
+    TicTacToeManager manager; // Create instance of manager
     string first_player;
     char user_choice = 'y';
 
     do
     {
+        TicTacToe game; // New game instance for each round
+
         // Step 1: Prompt the user to choose the first player (X or O)
         while (true) {
             cout << "Welcome to TicTacToe! Choose your first player (X or O): ";
             cin >> first_player;
 
-            // Check for valid input (either X or O)
             if (first_player == "X" || first_player == "O") {
-                break;  // Valid input, break out of the loop
+                break;
             } else {
                 cout << "Invalid input. Please choose X or O.\n";
             }
         }
 
-        // Step 2: Start a new game with the selected first player
+        // Step 2: Start a new game
         game.start_game(first_player);
         int position;
 
-        // Step 3: Game loop until the game is over
+        // Step 3: Game loop
         while (!game.game_over())
         {
-            game.display_board();  // Display the current state of the board
-
-            // Display the current player dynamically
-            cout << "Player " << (game.get_winner() == "X" ? "X" : "O") << ", enter the position (1-9) to mark: ";
+            game.display_board();
+            cout << "Player " << first_player << ", enter the position (1-9) to mark: ";
             cin >> position;
 
-            // Mark the board with the current player's move
             game.mark_board(position);
         }
 
-        // Step 4: Display the final result after the game ends
-        game.display_board();  // Show the final board
-
+        // Step 4: Display the final result
+        game.display_board();
         string winner = game.get_winner();
         if (winner == "C") {
             cout << "The game is a tie!\n";
@@ -54,11 +52,20 @@ int main()
             cout << "Player " << winner << " wins!\n";
         }
 
-        // Step 5: Prompt the user to play again or quit
+        // Step 5: Save game to manager and display running totals
+        manager.save_game(game);
+
+        int o_wins, x_wins, ties;
+        manager.get_winner_total(o_wins, x_wins, ties);
+        cout << "Running totals — X wins: " << x_wins 
+             << ", O wins: " << o_wins 
+             << ", Ties: " << ties << "\n";
+
+        // Step 6: Play again?
         cout << "Play again? Enter y or Y to play again, any other key to quit: ";
         cin >> user_choice;
 
-    } while (user_choice == 'y' || user_choice == 'Y');  // Outer loop to restart the game if the user chooses 'y' or 'Y'
+    } while (user_choice == 'y' || user_choice == 'Y');
 
     cout << "Thanks for playing TicTacToe! Goodbye!\n";
     return 0;

@@ -15,6 +15,8 @@ public:
     void display_board() const;
     std::string get_winner();
     void set_winner();
+    void save_game(TicTacToe b);
+    void get_winner_total(int& o, int& x, int&t);
 
 private:
     std::string player;
@@ -26,6 +28,11 @@ private:
     bool check_column_win();
     bool check_row_win();
     bool check_diagonal_win();
+    std::vector<TicTacToe> games; // vector of TicTacToe
+    int x_win = 0; // initialize to 0
+    int o_win = 0; // initialize to 0
+    int ties = 0;  // initialize to 0
+    void update_winner_count(std::string winner);
     
 };
 
