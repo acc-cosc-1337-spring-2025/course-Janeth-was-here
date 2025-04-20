@@ -4,8 +4,8 @@
 
 void TicTacToeManager::save_game(TicTacToe b)
 {
-    games.push_back(b);  // Save the game to history
-    update_winner_count(b.get_winner());  // Update win/tie totals
+    games.push_back(std::make_unique<TicTacToe>(b)); 
+    update_winner_count(b.get_winner());
 }
 
 void TicTacToeManager::update_winner_count(std::string winner)

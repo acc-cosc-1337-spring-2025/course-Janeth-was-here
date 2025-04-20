@@ -3,6 +3,7 @@
 #define TIC_TAC_TOE_MANAGER_H
 
 #include "tic_tac_toe.h"
+#include<memory>
 #include <vector>
 #include <string>
 
@@ -13,7 +14,7 @@ public:
     void get_winner_total(int& o, int& x, int& t);
 
 private:
-    std::vector<TicTacToe> games; // vector of TicTacToe
+    std::vector<std::unique_ptr<TicTacToe>> games; // vector of TicTacToe
 
     int x_win = 0; // initialize to 0
     int o_win = 0; // initialize to 0

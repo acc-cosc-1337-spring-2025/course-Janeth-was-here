@@ -1,6 +1,6 @@
 //cpp
 #include "tic_tac_toe.h"
-
+#include <cmath>
 using std::cout;
 
 bool TicTacToe::game_over()
@@ -40,9 +40,17 @@ void TicTacToe::mark_board(int position)
 
 void TicTacToe::display_board() const
 {
-    for(long unsigned int i=0; i < pegs.size(); i += 3)
+    int board_size = static_cast<int>(std::sqrt(pegs.size()));
+
+    for (size_t i = 0; i < pegs.size(); i += board_size)
     {
-        cout<<pegs[i]<<"|"<<pegs[i+1]<<"|"<<pegs[i+2]<<"\n";
+        for (int j = 0; j < board_size; ++j)
+        {
+            std::cout << pegs[i + j];
+            if (j < board_size - 1)
+                std::cout << "|";
+        }
+        std::cout << "\n";
     }
 }
 
@@ -87,51 +95,16 @@ std::string TicTacToe::get_winner()
 
 bool TicTacToe::check_column_win()
 {
-    // Check first column: positions 0, 3, 6
-    if (pegs[0] != " " && pegs[0] == pegs[3] && pegs[3] == pegs[6]) {
-        return true;
-    }
-    // Check second column: positions 1, 4, 7
-    if (pegs[1] != " " && pegs[1] == pegs[4] && pegs[4] == pegs[7]) {
-        return true;
-    }
-    // Check third column: positions 2, 5, 8
-    if (pegs[2] != " " && pegs[2] == pegs[5] && pegs[5] == pegs[8]) {
-        return true;
-    }
-
     return false;
 }
 
 bool TicTacToe::check_row_win()
 {
-    // First row: positions 0, 1, 2
-    if (pegs[0] != " " && pegs[0] == pegs[1] && pegs[1] == pegs[2]) {
-        return true;
-    }
-    // Second row: positions 3, 4, 5
-    if (pegs[3] != " " && pegs[3] == pegs[4] && pegs[4] == pegs[5]) {
-        return true;
-    }
-    // Third row: positions 6, 7, 8
-    if (pegs[6] != " " && pegs[6] == pegs[7] && pegs[7] == pegs[8]) {
-        return true;
-    }
-
     return false;
 }
 
 bool TicTacToe::check_diagonal_win()
 {
-    // First diagonal: positions 0, 4, 8 (1, 5, 9)
-    if (pegs[0] != " " && pegs[0] == pegs[4] && pegs[4] == pegs[8]) {
-        return true;
-    }
-    // Second diagonal: positions 6, 4, 2 (7, 5, 3)
-    if (pegs[6] != " " && pegs[6] == pegs[4] && pegs[4] == pegs[2]) {
-        return true;
-    }
-
     return false;
 }
 
